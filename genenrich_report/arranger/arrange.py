@@ -1,13 +1,20 @@
 import os
-import config
+try:
+    import config
+except:
+    pass
 from jbiot import log
+from jbiot import jbiotWorker
 import json
 
 
 def arrange(parms):
-    targetDir = parms['targetDir']
-    goDir = os.path.join(targetDir, 'enrich/GO')
-    keggDir = os.path.join(targetDir, 'enrich/KEGG')
+    try:
+        targetDir = parms['resultsDirectory']
+    except:
+        targetDir = './'
+    goDir = os.path.join(targetDir, 'report/enrichAnalysis/GO')
+    keggDir = os.path.join(targetDir, 'report/enrichAnalysis/KEGG')
     if not os.path.exists(goDir):
         cmd = "mkdir -p %s"%goDir
         os.system(cmd)
@@ -45,27 +52,20 @@ def arrange(parms):
     fwp.close()
 
 
-def genTempltRendrParms(targetDir, func_pngs, go_pngs, kegg_pngs):
-    out_dict = {}
-    out_dict['func_pngs'] = func_pngs
-    out_dict['go_pngs'] = go_pngs
-    out_dict['kegg_pngs'] = kegg_pngs
-    outfile = os.path.join(targetDir, "TempltRenderParms.json")
-    fwp = open(outfile, 'w')
-    fwp.write(json.dumps(out_dict))
-    fwp.close()
-    return outfile 
+class ArrangeWorker(jbiotWorker):
+    def handle_task(self, key, params):
+        self.execute(arrange, params)
 
 
 if __name__ == '__main__':
     import sys
     targetDir = sys.argv[1]
-    func = sys.argv[2]
-    go = sys.argv[3]
-    kegg = sys.argv[4]    
+    funcFile = sys.argv[2]
+    goFile = sys.argv[3]
+    keggFile = sys.argv[4]    
     parms = {}
-    parms['targetDir'] = targetDir
-    parms['func'] = func
-    parms['go'] = go
-    parms['kegg'] = kegg
+    parms['resultsDirectory'] = targetDir
+    parms['func'] = funcFile
+    parms['go'] = goFile
+    parms['kegg'] = keggFile
     arrange(parms)

@@ -1,13 +1,19 @@
 import sys,os
 cwd = os.path.dirname(os.path.abspath(__file__))
 arrange = os.path.join(cwd, '../genenrich_report/arranger/arrange.py')
-import config
+sys.path.append(os.path.join(cwd, '../'))
+
+try:
+    from genenrich_report import config
+except:
+    pass
 from jbiot import log
 
-targetDir = 'data/'
+targetDir = 'data/report/'
 func = 'data/test.func.go.txt'
 go = 'data/test.enrich.go.txt'
 kegg = 'data/test.enrich.kegg.txt'
+
 
 def test_arrange():
     parms = {}

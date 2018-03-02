@@ -1,5 +1,9 @@
-import config
+try: 
+    import config
+except:
+    pass
 from jbiot import log
+from jbiot import jbiotWorker
 import sys,os
 cwd = os.path.dirname(os.path.abspath(__file__))
 funcAnnoGO = os.path.join(cwd, 'funcAnnoGO.r')
@@ -30,3 +34,9 @@ def enrich(parms):
     kegg = prefix+'.enrich.kegg.txt'
     out_dict = {'func':func, 'go':go, 'kegg':kegg}
     return out_dict
+
+
+class EnrichWorker(jbiotWorker):
+    def handle_task(self, key, params):
+        self.execute(enrich, params)
+
