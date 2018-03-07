@@ -1,7 +1,7 @@
 try: 
-    import config
+    from config import Rscript
 except:
-    pass
+    Rscript = 'Rscript'
 from jbiot import log
 from jbiot import jbiotWorker
 import sys,os
@@ -14,11 +14,11 @@ enrichKEGG = os.path.join(cwd, 'enrichKEGG.r')
 def enrich(parms):
     enrichFile = parms['enrichFile']
     prefix = parms['prefix']
-    cmd = "Rscript %s %s %s"%(funcAnnoGO, enrichFile, prefix)
+    cmd = " %s %s %s %s"%(Rscript, funcAnnoGO, enrichFile, prefix)
     log.run('enrich analysis', cmd)
-    cmd = "Rscript %s %s %s"%(enrichGO, enrichFile, prefix)
+    cmd = "%s %s %s %s"%(Rscript, enrichGO, enrichFile, prefix)
     log.run('enrich analysis', cmd)
-    cmd = "Rscript %s %s %s"%(enrichKEGG, enrichFile, prefix)
+    cmd = "%s %s %s %s"%(Rscript, enrichKEGG, enrichFile, prefix)
     log.run('enrich analysis', cmd)
     #func_outs = []
     #suffixs = ['go.CC.bar.func.png', 'go.MF.bar.func.png', 'go.BP.bar.func.png']

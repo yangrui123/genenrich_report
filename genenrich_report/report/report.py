@@ -13,7 +13,8 @@ enrichTemplt = os.path.join(cwd, 'enrich_template.md')
 
 
 def report(parms):
-    ijson = parms['templt']
+    ijson = parms['templtJson']
+    enrichTemplt = parms['template']
     try:
         targetDir = parms['resultsDirectory']
     except:
@@ -21,7 +22,7 @@ def report(parms):
     out = os.path.join(targetDir,"geneEnrich_report.md")
     cmd = "%s -t %s -j %s -o %s" %(render, enrichTemplt, ijson, out)
     log.run("generating cancer drug report templete", cmd)
-    cmd = "python %s %s"%(md2html, out)
+    cmd = "%s %s"%(md2html, out)
     log.run("generating mapping report", cmd)
 
 

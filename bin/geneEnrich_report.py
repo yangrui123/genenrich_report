@@ -21,8 +21,8 @@ from jbiot import jbiotWorker
 
 def enrichAnalysis(parms):
     enrichFiles = parms['enrichFiles']
-    for enrichFile, prefix in enrichFiles:
-        tmp = {'enrichFile':enrichFile, 'prefix':prefix}
+    for prefix in enrichFiles:
+        tmp = {'enrichFile':enrichFiles[prefix], 'prefix':prefix}
         out_dict = enrich(tmp)
     try:
         targetDir = parms['resultsDirectory']
@@ -36,12 +36,14 @@ def arngeReport(parms):
     targetDir = parms['resultsDirectory']
     cmd = "python %s %s %s %s %s"%(arrange, targetDir, parms['func'], parms['go'], parms['kegg'])
     log.run('arranger',cmd)
-    report_dict = {'templt':os.path.join(targetDir, "TempltRenderParms.json"), 'resultsDirectory':targetDir}
+    report_dict = {'templtJson':os.path.join(targetDir, "TempltRenderParms.json"), 'template':parms['template'], 'resultsDirectory':targetDir}
     report(report_dict)
 
 
 def main(parms):
+    template = parms['enrich_template']
     parms = enrichAnalysis(parms)
+    parms['template'] = template
     arngeReport(parms)
 
 

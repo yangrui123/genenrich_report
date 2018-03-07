@@ -4,10 +4,9 @@ sys.path.append(os.path.join(cwd,'../'))
 
 from genenrich_report.report.report import report
 
-targetDir = 'data/report'
 
 def test_report():
-    report_dict = {'templt':os.path.join(targetDir, "TempltRenderParms.json"), 'targetDir':targetDir}
+    report_dict = {'templtJson': "data/TempltRenderParms.json", 'template':'/home/testData/geneEnrich_report/enrich_template.md', 'resultsDirectory':'data/'}
     report(report_dict)
 
 
