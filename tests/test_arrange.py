@@ -10,9 +10,9 @@ except:
 from jbiot import log
 
 targetDir = 'data/report/'
-func = 'data/test.func.go.txt'
-go = 'data/test.enrich.go.txt'
-kegg = 'data/test.enrich.kegg.txt'
+func = '/home/testData/geneEnrich_report/data/test.func.go.txt'
+go = '/home/testData/geneEnrich_report/data/test.enrich.go.txt'
+kegg = '/home/testData/geneEnrich_report/data/test.enrich.kegg.txt'
 
 
 def test_arrange():

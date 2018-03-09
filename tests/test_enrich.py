@@ -4,7 +4,7 @@ sys.path.append(os.path.join(cwd,'../'))
 
 from genenrich_report.enrichAnalys.enrich import enrich
 
-enrichFile = 'data/whole.pop_protein.new.xls'
+enrichFile = '/home/testData/geneEnrich_report/data/whole.pop_protein.new.xls'
 prefix = 'data/test'
 
 def test_enrich():

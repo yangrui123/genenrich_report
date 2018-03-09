@@ -6,7 +6,7 @@ from genenrich_report.report.report import report
 
 
 def test_report():
-    report_dict = {'templtJson': "data/TempltRenderParms.json", 'template':'/home/testData/geneEnrich_report/enrich_template.md', 'resultsDirectory':'data/'}
+    report_dict = {'templtJson': "/home/testData/geneEnrich_report/data/TempltRenderParms.json", 'template':'/home/testData/geneEnrich_report/enrich_template.md', 'resultsDirectory':'data/'}
     report(report_dict)
 
 
