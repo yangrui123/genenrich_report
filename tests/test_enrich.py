@@ -8,7 +8,7 @@ enrichFile = '/home/testData/geneEnrich_report/data/whole.pop_protein.new.xls'
 prefix = 'data/test'
 
 def test_enrich():
-    funcs,gos,kegg = enrich(enrichFile, prefix)
+    funcs,gos,kegg = enrich({'enrichFile':enrichFile, 'prefix':prefix})
 
 
 if __name__ == '__main__':
