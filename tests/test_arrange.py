@@ -1,15 +1,12 @@
 import sys,os
 cwd = os.path.dirname(os.path.abspath(__file__))
-arrange = os.path.join(cwd, '../genenrich_report/arranger/arrange.py')
 sys.path.append(os.path.join(cwd, '../'))
 
 try:
-    from genenrich_report import config
+    from genenrich_report.arranger.arrange import arrange
 except:
     pass
-from jbiot import log
 
-targetDir = 'data/report/'
 func = '/home/testData/geneEnrich_report/data/test.func.go.txt'
 go = '/home/testData/geneEnrich_report/data/test.enrich.go.txt'
 kegg = '/home/testData/geneEnrich_report/data/test.enrich.kegg.txt'
@@ -17,12 +14,10 @@ kegg = '/home/testData/geneEnrich_report/data/test.enrich.kegg.txt'
 
 def test_arrange():
     parms = {}
-    parms['targetDir'] = targetDir
     parms['func'] = func
     parms['go'] = go
     parms['kegg'] = kegg
-    cmd = "python %s %s %s %s %s"%(arrange, targetDir, parms['func'], parms['go'], parms['kegg'])
-    log.run('arranger',cmd)
+    arrange(parms)
 
 
 if __name__ == '__main__':

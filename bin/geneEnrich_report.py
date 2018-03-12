@@ -4,11 +4,12 @@ __author__ = 'yangrui'
 
 import sys, os
 cwd = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(cwd,'../'))
-arrange = os.path.join(cwd, '../genenrich_report/arranger/arrange.py')
+sys.path.insert(0, os.path.join(cwd,'../'))
+
 
 from genenrich_report.enrichAnalys.enrich import enrich
 from genenrich_report.report.report import report
+from genenrich_report.arranger.arrange import arrange
 try:
     from genenrich_report import config
 except:
@@ -34,8 +35,7 @@ def enrichAnalysis(parms):
 
 def arngeReport(parms):
     targetDir = parms['resultsDirectory']
-    cmd = "python %s %s %s %s %s"%(arrange, targetDir, parms['func'], parms['go'], parms['kegg'])
-    log.run('arranger',cmd)
+    arrange(parms)
     report_dict = {'templtJson':os.path.join(targetDir, "TempltRenderParms.json"), 'template':parms['template'], 'resultsDirectory':targetDir}
     report(report_dict)
 

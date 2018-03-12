@@ -1,25 +1,29 @@
-try: 
-    from config import Rscript
-except:
-    Rscript = 'Rscript'
+#! /usr/bin/env python
+
 from jbiot import log
 from jbiot import jbiotWorker
 import sys,os
 cwd = os.path.dirname(os.path.abspath(__file__))
 funcAnnoGO = os.path.join(cwd, 'funcAnnoGO.r')
+if not os.path.exists(funcAnnoGO):
+    funcAnnoGO = "/opt/funcAnnoGO.r"
 enrichGO = os.path.join(cwd, 'enrichGO.r')
+if not os.path.exists(enrichGO):
+    enrichGO = "/opt/enrichGO.r"
 enrichKEGG = os.path.join(cwd, 'enrichKEGG.r') 
+if not os.path.exists(enrichKEGG):
+    enrichKEGG = "/opt/enrichKEGG.r"
 
 
 def enrich(parms):
     enrichFile = parms['enrichFile']
     prefix = parms['prefix']
-    cmd = " %s %s %s %s"%(Rscript, funcAnnoGO, enrichFile, prefix)
-    log.run('enrich analysis', cmd)
-    cmd = "%s %s %s %s"%(Rscript, enrichGO, enrichFile, prefix)
-    log.run('enrich analysis', cmd)
-    cmd = "%s %s %s %s"%(Rscript, enrichKEGG, enrichFile, prefix)
-    log.run('enrich analysis', cmd)
+    cmd = "%s %s %s"%(funcAnnoGO, enrichFile, prefix)
+    log.run('func annotation', cmd)
+    cmd = "%s %s %s"%(enrichGO, enrichFile, prefix)
+    log.run('GO enrich analysis', cmd)
+    cmd = "%s %s %s"%(enrichKEGG, enrichFile, prefix)
+    log.run('KEGG enrich analysis', cmd)
     #func_outs = []
     #suffixs = ['go.CC.bar.func.png', 'go.MF.bar.func.png', 'go.BP.bar.func.png']
     #for item in suffixs:

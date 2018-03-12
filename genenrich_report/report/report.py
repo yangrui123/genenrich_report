@@ -1,5 +1,8 @@
+#! /usr/bin/env python
+
 try:
-    from config import render, md2html
+    from config import render
+    from config import md2html
 except:
     render = 'render.py'
     md2html = 'md2html.py'
@@ -8,13 +11,26 @@ from jbiot import log
 import os
 from jbiot import jbiotWorker
 
-cwd = os.path.dirname(os.path.abspath(__file__))
-enrichTemplt = os.path.join(cwd, 'enrich_template.md')
+
+def get_templt(remotefile):
+    home = os.environ["HOME"]
+    localfile = remotefile.split("/")[-1]
+    cmd = "wget %s -P %s/.templates " % (home,remotefile)
+
+    localfile1 = os.path.join(home,".templates",localfile)
+    localfile2 = os.path.join("~",".templates",localfile)
+    if os.path.exists(localfile1):
+        return localfile1
+    os.system(cmd)
+    return localfile1
 
 
 def report(parms):
     ijson = parms['templtJson']
     enrichTemplt = parms['template']
+    if enrichTemplt.startswith("http://"):
+        enrichTemplt =get_templt(enrichTemplt)
+
     try:
         targetDir = parms['resultsDirectory']
     except:

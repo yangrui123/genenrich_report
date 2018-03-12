@@ -1,3 +1,5 @@
+#! /usr/bin/env Rscript
+
 library(clusterProfiler)
 library(Cairo)
 library(org.Hs.eg.db)
