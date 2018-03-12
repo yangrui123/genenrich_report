@@ -2,6 +2,8 @@
 geneEnrich_report
 =================
 
+.. image:: https://travis-ci.org/yangrui123/genenrich_report.svg?branch=master
+    :target: https://travis-ci.org/yangrui123/genenrich_report
 
 Add a short description here!
 
